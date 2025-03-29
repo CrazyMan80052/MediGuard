@@ -24,7 +24,7 @@ patients_data = {
                 , "type": "Prescription"}
         ],
         "drug_history": [
-            {"drug": "Vitamin D", "date": "2025-03-26", "time": "09:00 AM"}
+            {"drug": "Acetaminophen", "start_date": "2020-01-26","end_date": "2025-01-26", "time": "02:00 PM"}
         ],
         "health_history": [
             {"event": "Blood Pressure Check", "date": "2025-03-28", "result": "120/80 mmHg"}
@@ -50,7 +50,7 @@ patients_data = {
             {"drug": "Losartan", "time": "09:00 AM", "dose": "1 tablet", "doctornotes": "Take in morning"}
         ],
         "drug_history": [
-            {"drug": "Zyrtec", "date": "2025-03-28", "time": "08:00 PM"}
+            {"drug": "Zyrtec", "start_date": "2023-04-26","end_date": "2025-04-26", "time": "08:00 PM"}
         ],
         "health_history": [
             {"event": "Blood Pressure Check", "date": "2025-03-28", "result": "130/85 mmHg"}
@@ -67,7 +67,7 @@ patients_data = {
             {"drug": "Omeprazole", "time": "07:00 AM", "dose": "1 capsule", "doctornotes": "Take before breakfast"}
         ],
         "drug_history": [
-            {"drug": "Acetaminophen", "date": "2025-03-28", "time": "02:00 PM"}
+            {"drug": "Acetaminophen", "start_date": "2020-01-26","end_date": "2025-01-26", "time": "02:00 PM"}
         ],
         "health_history": [
             {"event": "Acid Reflux Check", "date": "2025-03-28", "result": "Mild symptoms"}
@@ -94,7 +94,7 @@ patients_data = {
             {"drug": "Gabapentin", "time": "09:00 PM", "dose": "1 capsule", "doctornotes": "Take at bedtime"}
         ],
         "drug_history": [
-            {"drug": "Ibuprofen", "date": "2025-03-28", "time": "03:00 PM"}
+            {"drug": "Ibuprofen", "start_date": "2020-01-26","end_date": "2025-01-26", "time": "03:00 PM"}
         ],
         "health_history": [
             {"event": "Pain Assessment", "date": "2025-03-28", "result": "Moderate"}

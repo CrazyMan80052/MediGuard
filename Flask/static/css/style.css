@@ -297,10 +297,6 @@ body {
     font-weight: 500;
 }
 
-.schedule-table td:nth-child(2) {
-    color: #e74c3c; /* Highlight time/date in red for emphasis */
-}
-
 .mediGuard-link {
     font-family: 'Roboto', sans-serif; /* Use a cool font-family */
     font-weight: 700; /* Bold weight for block font effect */
