@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediGuard - {% block title %}{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-links">
+            {% if session.get('role') == 'patient' %}
+                <a href="{{ url_for('patient_home') }}">Home</a>
+                <a href="{{ url_for('patient_drug_history') }}">Drug History</a>
+                <a href="{{ url_for('patient_health_history') }}">Health History</a>
+                <a href="{{ url_for('patient_add_drug') }}">Add Drug</a>
+            {% elif session.get('role') == 'doctor' %}
+                <a href="{{ url_for('doctor_dashboard') }}">Dashboard</a>
+            {% endif %}
+            {% if session.get('role') %}
+                <span class="nav-welcome">Welcome {{ session.get('role') | capitalize }}!</span>
+                <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+            {% endif %}
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

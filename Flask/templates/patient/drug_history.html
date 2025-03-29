@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Drug History{% endblock %}
+{% block content %}
+    <header class="hero">
+        <h1>Drug History</h1>
+        <p>Track your medication usage over time.</p>
+    </header>
+    <section class="schedule-container">
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th>Drug</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in history %}
+                    <tr class="schedule-row">
+                        <td>{{ entry.drug }}</td>
+                        <td>{{ entry.date }}</td>
+                        <td>{{ entry.time }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+{% endblock %}

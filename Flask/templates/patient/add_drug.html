@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Add Drug{% endblock %}
+{% block content %}
+    <header class="hero">
+        <h1>Add New Drug</h1>
+        <p>Update your medication schedule with ease.</p>
+    </header>
+    <section class="schedule-container">
+        <form method="POST" class="add-drug-form">
+            <div class="form-group">
+                <label for="drug">Drug Name</label>
+                <input type="text" id="drug" name="drug" required placeholder="e.g., Aspirin">
+            </div>
+            <div class="form-group">
+                <label for="time">Time</label>
+                <input type="time" id="time" name="time" required>
+            </div>
+            <div class="form-group">
+                <label for="dose">Dose</label>
+                <input type="text" id="dose" name="dose" required placeholder="e.g., 1 tablet">
+            </div>
+            <button type="submit" class="submit-btn">Add Drug</button>
+        </form>
+    </section>
+{% endblock %}

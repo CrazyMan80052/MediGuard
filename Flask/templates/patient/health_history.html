@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Health History{% endblock %}
+{% block content %}
+    <header class="hero">
+        <h1>Health History</h1>
+        <p>Monitor your health metrics and events.</p>
+    </header>
+    <section class="schedule-container">
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Date</th>
+                    <th>Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in health %}
+                    <tr class="schedule-row">
+                        <td>{{ event.event }}</td>
+                        <td>{{ event.date }}</td>
+                        <td>{{ event.result }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+{% endblock %}

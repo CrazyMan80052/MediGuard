@@ -1,0 +1,284 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Navigation */
+.nav-bar {
+    background-color: #ffffff;
+    padding: 15px 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links a {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 20px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #0056b3;
+}
+
+.nav-welcome {
+    color: #2c3e50;
+    font-weight: 500;
+    font-size: 1rem;
+    margin-right: 20px;
+    flex-grow: 1;
+    text-align: right;
+}
+
+.logout-link {
+    color: #e74c3c; /* Red to distinguish logout */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.logout-link:hover {
+    color: #c0392b;
+}
+
+/* Login Page */
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    text-align: center;
+}
+
+.login-form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.login-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+}
+
+/* Schedule Container */
+.schedule-container {
+    max-width: 900px;
+    margin: 0 auto 30px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.schedule-container h2 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+/* Table Styling */
+.schedule-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.schedule-table th,
+.schedule-table td {
+    padding: 15px;
+    text-align: left;
+}
+
+.schedule-table th {
+    background-color: #007bff;
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.schedule-table th:first-child {
+    border-top-left-radius: 8px;
+}
+
+.schedule-table th:last-child {
+    border-top-right-radius: 8px;
+}
+
+.schedule-table td {
+    border-bottom: 1px solid #eef2f7;
+    font-size: 1rem;
+    color: #2c3e50;
+}
+
+.schedule-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Row Hover Effect */
+.schedule-row {
+    transition: background-color 0.3s ease;
+}
+
+.schedule-row:hover {
+    background-color: #f8f9fa;
+}
+
+/* View Link Styling */
+.view-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.view-link:hover {
+    color: #0056b3;
+}
+
+/* Form Styling for Add Drug */
+.add-drug-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.form-group input::placeholder {
+    color: #bdc3c7;
+}
+
+.submit-btn {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .nav-bar {
+        padding: 10px 15px;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-links a {
+        margin: 5px 0;
+    }
+
+    .nav-welcome {
+        margin: 5px 0;
+        text-align: center;
+    }
+
+    .logout-link {
+        margin: 5px 0;
+    }
+
+    .add-drug-form {
+        max-width: 100%;
+    }
+
+    .login-container {
+        margin: 50px auto;
+    }
+}
+
+/* Additional Polish */
+.schedule-table td:first-child {
+    font-weight: 500;
+}
+
+.schedule-table td:nth-child(2) {
+    color: #e74c3c; /* Highlight time/date in red for emphasis */
+}

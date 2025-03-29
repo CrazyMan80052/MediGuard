@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <header class="hero">
+        <h1>Medication Schedule</h1>
+        <p>Your daily health management, simplified.</p>
+    </header>
+    <section class="schedule-container">
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th>Drug</th>
+                    <th>Time</th>
+                    <th>Dose</th>
+                    <th>Notes from Doctor</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in schedule %}
+                    <tr class="schedule-row">
+                        <td>{{ item.drug }}</td>
+                        <td>{{ item.time }}</td>
+                        <td>{{ item.dose }}</td>
+                        <td>{{ item.doctornotes }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+{% endblock %}
