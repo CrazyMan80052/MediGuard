@@ -11,7 +11,7 @@
 # drug history, times taken each drug(whether they taking or not), allergies
 # Each drug in the patients drug list includes: date assigned, doctor note, doctor id, 
 # dosage, time interval other drug facts
-# Doctor information: name, date, doctor id, patient id list, 
+# Doctor information: name, doctor id, patient id list, 
 # doctor enters drug name/id, dosage, time interval, any other important notes
 # patient enters OTC drugs with information above(dosage...) 
 
