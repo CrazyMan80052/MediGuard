@@ -56,26 +56,28 @@ def get_drug_info(drug_name, patient_drugs, fdacode):
         if res is None:
             break
         interactions = res['results'][0]
-        drug_interactions = interactions['drug_interactions']
-        #contraindications = interactions['contraindications']
+
+        drug_interactions = interactions.get('drug_interactions', [])
         for drug in patient_drugs:
             if 'active_ingredients' in drug:
                 for ing in drug['active_ingredients']:
                     print(ing)
-                    if ing.lower() in drug_interactions[0].lower():
+                    if (len(drug_interactions) > 0 and ing.lower() in drug_interactions[0].lower()) or ing.lower() in warnings.lower():
                         print(f"Warning: {drug['drug']} interacts with {drug_name}")
                         bad_interactions.append(drug['drug'])
-        #print(f"{active_ingredient} {contraindications}")
 
     drug_info = {
         "drug": drug_name,
         "warnings": warnings,
         "active_ingredients": active_ingredients,
-        "do_not_use" : label['do_not_use'][0],
-        "indications_and_usage" : label['indications_and_usage'][0],
-        "effective_time" : label['effective_time'][0],
     }
-    #print(drug_name)
+
+    if 'do_not_use' in label:
+        drug_info["do_not_use"] = label['do_not_use'][0]
+    if 'indications_and_usage' in label:
+        drug_info["indications_and_usage"] = label['indications_and_usage'][0]
+    if 'effective_time' in label:
+        drug_info["effective_time"] = label['effective_time'][0]
 
     return drug_info, bad_interactions
 
@@ -88,4 +90,6 @@ def get_drug_info(drug_name, patient_drugs, fdacode):
 #         "active_ingredients": ["acetaminophen"],
 #     }
 # ]
-#get_drug_info("Advil", sample_data)
+# drug, bad = get_drug_info("Warfarin", sample_data, 'substance_name')
+# print('ibuprofen' in drug['warnings'])
+# print(bad)
