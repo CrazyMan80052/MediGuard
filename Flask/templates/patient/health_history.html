@@ -1,28 +1,236 @@
 {% extends "base.html" %}
-{% block title %}Health History{% endblock %}
+{% block title %}Health Dashboard{% endblock %}
 {% block content %}
-    <header class="hero">
-        <h1>Health History</h1>
-        <p>Monitor your health metrics and events.</p>
-    </header>
-    <section class="schedule-container">
-        <table class="schedule-table">
-            <thead>
-                <tr>
-                    <th>Event</th>
-                    <th>Date</th>
-                    <th>Result</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for event in health %}
-                    <tr class="schedule-row">
-                        <td>{{ event.event }}</td>
-                        <td>{{ event.date }}</td>
-                        <td>{{ event.result }}</td>
+    <div class="dashboard-container">
+        <header class="hero">
+            <h1>Health Dashboard</h1>
+            <p>John Doe - PID: 001</p>
+        </header>
+
+        <!-- Vitals Section -->
+        <section class="section">
+            <h2>Vitals</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Heart Rate</h3>
+                    <p>72 bpm</p>
+                </div>
+                <div class="info-card">
+                    <h3>Blood Pressure</h3>
+                    <p>120/80 mmHg</p>
+                </div>
+                <div class="info-card">
+                    <h3>Temperature</h3>
+                    <p>98.6°F</p>
+                </div>
+                <div class="info-card">
+                    <h3>Respiratory Rate</h3>
+                    <p>16 breaths/min</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Previous Conditions Section -->
+        <section class="section">
+            <h2>Previous Conditions</h2>
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Condition</th>
+                        <th>Date</th>
+                        <th>Details</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </section>
+                </thead>
+                <tbody>
+                    <tr class="schedule-row">
+                        <td>Hypertension</td>
+                        <td>2023-05-12</td>
+                        <td>Diagnosed</td>
+                    </tr>
+                    <tr class="schedule-row">
+                        <td>Type 2 Diabetes</td>
+                        <td>2022-11-03</td>
+                        <td>Diagnosed</td>
+                    </tr>
+                    <tr class="schedule-row">
+                        <td>Sprained Ankle</td>
+                        <td>2024-09-15</td>
+                        <td>Treated</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Allergies Section -->
+        <section class="section">
+            <h2>Allergies</h2>
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Allergen</th>
+                        <th>Reaction</th>
+                        <th>Date Documented</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="schedule-row">
+                        <td class="warning">Penicillin</td>
+                        <td>Severe rash</td>
+                        <td>2021-08-20</td>
+                    </tr>
+                    <tr class="schedule-row">
+                        <td class="warning">Peanuts</td>
+                        <td>Anaphylaxis</td>
+                        <td>2019-03-14</td>
+                    </tr>
+                    <tr class="schedule-row">
+                        <td class="warning">Shellfish</td>
+                        <td>Mild itching</td>
+                        <td>2023-01-10</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <style>
+        .dashboard-container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid #186c88;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: #186c88;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #5e7e8d;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            color: #186c88;
+            margin-bottom: 15px;
+            font-weight: 600;
+            border-bottom: 2px solid #186c88;
+            padding-bottom: 5px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .info-card {
+            background: #f9fcfd;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #d1e2e8;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(24, 108, 136, 0.2);
+        }
+
+        .info-card h3 {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .info-card p {
+            font-size: 1rem;
+            color: #5e7e8d;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .schedule-table th,
+        .schedule-table td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        .schedule-table th {
+            background-color: #186c88;
+            color: #ffffff;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .schedule-table th:first-child {
+            border-top-left-radius: 8px;
+        }
+
+        .schedule-table th:last-child {
+            border-top-right-radius: 8px;
+        }
+
+        .schedule-table td {
+            border-bottom: 1px solid #eef2f7;
+            font-size: 1rem;
+            color: #2c3e50;
+        }
+
+        .schedule-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .schedule-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .warning {
+            color: #d9534f;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 20px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 {% endblock %}

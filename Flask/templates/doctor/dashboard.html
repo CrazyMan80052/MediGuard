@@ -218,7 +218,7 @@
                     </td>
                     <td>
                         <a href="{{ url_for('doctor_edit_drug', patient_id=patient.patient_id) }}" class="action-link">Edit Drugs</a>
-                        <a href="{{ url_for('doctor_edit_drug', patient_id=patient.patient_id) }}" class="action-link">See Results</a>
+                        <a href="{{ url_for('doctor_patient_detail', patient_id=patient.patient_id) }}" class="action-link">View History</a>
                     </td>
                 </tr>
                 {% endfor %}

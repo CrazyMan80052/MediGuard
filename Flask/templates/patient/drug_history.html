@@ -19,11 +19,14 @@
                 {% for entry in history %}
                     <tr class="schedule-row">
                         <td>{{ entry.drug }}</td>
-                        <td>{{ entry.date }}</td>
-                        <td>{{ entry.date }}</td>
+                        <td>{{ entry.start_date }}</td>
+                        <td>{{ entry.end_date }}</td>
                         <td>{{ entry.time }}</td>
                     </tr>
                 {% endfor %}
+                <div style="display: flex; justify-content: center; align-items: center; padding-bottom: 20px">
+                    <img height="400px" style="width: auto;" src="../static/images/graph.png" alt="Graph of Medication">
+                </div>                
             </tbody>
         </table>
     </section>

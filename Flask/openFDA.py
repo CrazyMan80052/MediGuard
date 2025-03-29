@@ -64,7 +64,8 @@ def get_drug_info(drug_name, patient_drugs, fdacode):
                     print(ing)
                     if (len(drug_interactions) > 0 and ing.lower() in drug_interactions[0].lower()) or ing.lower() in warnings.lower():
                         print(f"Warning: {drug['drug']} interacts with {drug_name}")
-                        bad_interactions.append(drug['drug'])
+                        if drug['drug'] not in bad_interactions:
+                            bad_interactions.append(drug['drug'])
 
     drug_info = {
         "drug": drug_name,
