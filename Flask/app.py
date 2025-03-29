@@ -173,7 +173,7 @@ def doctor_patient_detail(patient_id):
         return redirect(url_for('login'))
     if patient_id not in patients_data:
         return "Patient not found", 404
-    return render_template('doctor/edit_drug.html', data=patient_id)
+    return render_template('patient/health_history.html', data=patient_id)
 
 @app.route('/doctor/edit_drug/<patient_id>', methods=['GET', 'POST'])
 def doctor_edit_drug(patient_id):
