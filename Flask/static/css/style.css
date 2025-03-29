@@ -50,7 +50,7 @@ body {
 }
 
 .logout-link {
-    color: #e74c3c; /* Red to distinguish logout */
+    color: #e74c3c;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
@@ -74,25 +74,41 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
+.login-form .form-group {
+    margin-bottom: 20px;
+}
+
+.login-form input,
 .login-form select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 6px;
     font-size: 1rem;
-    margin-bottom: 20px;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+.login-form input:focus,
+.login-form select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.login-form input::placeholder {
+    color: #bdc3c7;
 }
 
 /* Hero Section */
 .hero {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .hero h1 {
-    font-size: 2.5rem;
-    color: #2c3e50;
-    margin-bottom: 10px;
+    font-size: 2rem;
+    color: #15212d;
+    margin-bottom: 5px;
 }
 
 .hero p {
@@ -169,6 +185,8 @@ body {
 .view-link {
     color: #007bff;
     text-decoration: none;
+    font-weight: 500;
+    transition: color 0 ratt-dbg-colorado;
     font-weight: 500;
     transition: color 0.3s ease;
 }
