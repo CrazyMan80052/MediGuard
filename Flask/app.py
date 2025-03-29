@@ -22,8 +22,6 @@ patients_data = {
                 "effective_time" : "2025-03-01",
                 "time": "12:00 PM", "dose": "2 tablets", "doctornotes": "Take one pill in the morning and one pill in the night after a meal."
                 , "type": "Prescription"}
-            {"drug": "Aspirin", "time": "08:00 AM", "dose": "1 tablet", "doctornotes": "Take with breakfast"},
-            {"drug": "Metformin", "time": "12:00 PM", "dose": "2 tablets", "doctornotes": "Take after meals"}
         ],
         "drug_history": [
             {"drug": "Ibuprofen", "date": "2025-03-27", "time": "10:00 AM"},
@@ -50,7 +48,7 @@ patients_data = {
              "do_not_use" : "Do not use if you have a history of allergic reaction to aspirin or other NSAIDs.",
                 "indications_and_usage" : "For the temporary relief of minor aches and pains.",
                 "effective_time" : "2025-03-01", "time": "03:00 PM", "dose": "2 tablets"
-                , "type": "OTC"}
+                , "type": "OTC"},
             {"drug": "Losartan", "time": "09:00 AM", "dose": "1 tablet", "doctornotes": "Take in morning"}
         ],
         "drug_history": [
