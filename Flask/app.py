@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, flash, render_template, request, redirect, url_for, session
+from openFDA import get_drug_info
 
 app = Flask(__name__)
 app.secret_key = 'your-secret-key-here'  # Replace with a secure key
@@ -9,8 +10,17 @@ patients_data = {
         "patient_id": "1",
         "patient_name": "John Doe",
         "schedule": [
-            {"drug": "Aspirin", "time": "08:00 AM", "dose": "1 tablet", "doctornotes": "Take one pill in the morning every day for 14 days."},
-            {"drug": "Metformin", "time": "12:00 PM", "dose": "2 tablets", "doctornotes": "Take one pill in the morning and one pill in the night after a meal."}
+            {"drug": "Aspirin", "warnings" : "Aspirin", "active_ingredients" : ["ibuprofen"],
+             "do_not_use" : "Do not use if you have a history of allergic reaction to aspirin or other NSAIDs.",
+                "indications_and_usage" : "For the temporary relief of minor aches and pains.",
+                "effective_time" : "2025-03-01",
+              "time": "08:00 AM", "dose": "1 tablet", "doctornotes": "Take one pill in the morning every day for 14 days."},
+            {"drug": "Metformin", 
+             "warnings" : "Aspirin", "active_ingredients" : ["acetylsalicylic acid"],
+             "do_not_use" : "Do not use if you have a history of allergic reaction to aspirin or other NSAIDs.",
+                "indications_and_usage" : "For the temporary relief of minor aches and pains.",
+                "effective_time" : "2025-03-01",
+                "time": "12:00 PM", "dose": "2 tablets", "doctornotes": "Take one pill in the morning and one pill in the night after a meal."}
         ],
         "drug_history": [
             {"drug": "Aspirin", "date": "2025-03-28", "time": "08:05 AM"},
@@ -28,8 +38,14 @@ patients_data = {
         "patient_id": "2",
         "patient_name": "Jane Smith",
         "schedule": [
-            {"drug": "Lisinopril", "time": "09:00 AM", "dose": "1 tablet"},
-            {"drug": "Ibuprofen", "time": "03:00 PM", "dose": "2 tablets"}
+            {"drug": "Lisinopril", "warnings" : "Aspirin", "active_ingredients" : ["acetylsalicylic acid"],
+             "do_not_use" : "Do not use if you have a history of allergic reaction to aspirin or other NSAIDs.",
+                "indications_and_usage" : "For the temporary relief of minor aches and pains.",
+                "effective_time" : "2025-03-01","time": "09:00 AM", "dose": "1 tablet"},
+            {"drug": "Ibuprofen", "warnings" : "Aspirin", "active_ingredients" : ["acetylsalicylic acid"],
+             "do_not_use" : "Do not use if you have a history of allergic reaction to aspirin or other NSAIDs.",
+                "indications_and_usage" : "For the temporary relief of minor aches and pains.",
+                "effective_time" : "2025-03-01", "time": "03:00 PM", "dose": "2 tablets"}
         ],
         "drug_history": [
             {"drug": "Lisinopril", "date": "2025-03-28", "time": "09:10 AM"},
@@ -82,8 +98,24 @@ def patient_add_drug():
         drug = request.form['drug']
         time = request.form['time']
         dose = request.form['dose']
-        patients_data["1"]["schedule"].append({"drug": drug, "time": time, "dose": dose})  # Default to patient 1
-        return redirect(url_for('patient_home'))
+
+        
+        # Checking drug interactions
+        fdacode = "brand_name"
+        drug_info, bad_interactions = get_drug_info(drug, patients_data["1"]["schedule"], fdacode)
+
+        #print(bad_interactions)
+        #print(drug_info)
+        if(len(bad_interactions) > 0):
+            #print("HELP")
+            flash(f"Warning: {drug} interacts with {bad_interactions}")
+            return render_template('patient/add_drug.html', error=f"Warning: {drug} interacts with {bad_interactions}") 
+        else:
+            drug_info["time"] = time
+            drug_info["dose"] = dose
+            patients_data["1"]["schedule"].append(drug_info)  # Default to patient 1
+            print("added the item to the list")
+            return redirect(url_for('patient_home'))
     return render_template('patient/add_drug.html')
 
 # Doctor Routes
