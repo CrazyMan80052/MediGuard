@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+    "terms": "https://open.fda.gov/terms/",
+    "license": "https://open.fda.gov/license/",
+    "last_updated": "2025-03-25",
+    "results": { "skip": 0, "limit": 1, "total": 168 }
+  },
+  "results": [
+    {
+      "submissions": [
+        {
+          "submission_type": "ORIG",
+          "submission_number": "1",
+          "submission_status": "AP",
+          "submission_status_date": "20151106",
+          "review_priority": "STANDARD",
+          "submission_class_code": "TYPE 3",
+          "submission_class_code_description": "Type 3 - New Dosage Form",
+          "application_docs": [
+            {
+              "id": "40622",
+              "url": "http://www.accessdata.fda.gov/drugsatfda_docs/label/2015/208183s000lbl.pdf",
+              "date": "20151112",
+              "type": "Label"
+            },
+            {
+              "id": "23052",
+              "url": "http://www.accessdata.fda.gov/drugsatfda_docs/nda/2015/208183Orig1s000TOC.cfm",
+              "date": "20160629",
+              "type": "Review"
+            },
+            {
+              "id": "24535",
+              "url": "http://www.accessdata.fda.gov/drugsatfda_docs/nda/2015/208183Orig1s000SumR.pdf",
+              "date": "20160629",
+              "type": "Summary Review"
+            },
+            {
+              "id": "32896",
+              "url": "http://www.accessdata.fda.gov/drugsatfda_docs/appletter/2015/208183Orig1s000ltr.pdf",
+              "date": "20151113",
+              "type": "Letter"
+            }
+          ]
+        },
+        {
+          "submission_type": "SUPPL",
+          "submission_number": "2",
+          "submission_status": "AP",
+          "submission_status_date": "20200827",
+          "review_priority": "STANDARD",
+          "submission_class_code": "EFFICACY",
+          "submission_class_code_description": "Efficacy",
+          "application_docs": [
+            {
+              "id": "64441",
+              "url": "http://www.accessdata.fda.gov/drugsatfda_docs/appletter/2020/208183Orig1s002ltr.pdf",
+              "date": "20200828",
+              "type": "Letter"
+            },
+            {
+              "id": "64502",
+              "url": "http://www.accessdata.fda.gov/drugsatfda_docs/label/2020/208183s002lbl.pdf",
+              "date": "20200904",
+              "type": "Label"
+            }
+          ]
+        }
+      ],
+      "application_number": "NDA208183",
+      "sponsor_name": "LACER PHARMA",
+      "products": [
+        {
+          "product_number": "001",
+          "reference_drug": "Yes",
+          "brand_name": "ULTRAVATE",
+          "active_ingredients": [
+            { "name": "HALOBETASOL PROPIONATE", "strength": "0.05%" }
+          ],
+          "reference_standard": "No",
+          "dosage_form": "LOTION",
+          "route": "TOPICAL",
+          "marketing_status": "Discontinued"
+        }
+      ]
+    }
+  ]
+}
