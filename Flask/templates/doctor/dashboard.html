@@ -1,30 +1,263 @@
-{% extends "base.html" %}
-{% block title %}Home{% endblock %}
-{% block content %}
-    <header class="hero">
-        <h1>Medication Schedule</h1>
-        <p>Your daily health management, simplified.</p>
-    </header>
-    <section class="schedule-container">
-        <table class="schedule-table">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediGuard - Doctor Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(135deg, #e6f0f3, #d1e2e8);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Dashboard Container */
+        .dashboard-container {
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid #186c88;
+        }
+
+        /* Logo Placeholder */
+        .logo-placeholder {
+            width: 100px;
+            height: 100px;
+            background: #186c88;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 15px rgba(24, 108, 136, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-placeholder:hover {
+            transform: scale(1.05);
+        }
+
+        /* Header */
+        .hero {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: #186c88;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #5e7e8d;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            margin-bottom: 30px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #186c88;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #333;
+            background: #f9fcfd;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            border-color: #144e64;
+            box-shadow: 0 0 8px rgba(24, 108, 136, 0.3);
+            outline: none;
+        }
+
+        .search-bar input::placeholder {
+            color: #a3b8c0;
+        }
+
+        /* Patient List */
+        .patient-list {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .patient-list th,
+        .patient-list td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        .patient-list th {
+            background-color: #186c88;
+            color: #ffffff;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .patient-list th:first-child {
+            border-top-left-radius: 8px;
+        }
+
+        .patient-list th:last-child {
+            border-top-right-radius: 8px;
+        }
+
+        .patient-list td {
+            border-bottom: 1px solid #eef2f7;
+            font-size: 1rem;
+            color: #2c3e50;
+        }
+
+        .patient-list tr:last-child td {
+            border-bottom: none;
+        }
+
+        .patient-list tr:hover {
+            background-color: #f8f9fa;
+            transition: background-color 0.3s ease;
+        }
+
+        .action-link {
+            color: #186c88;
+            text-decoration: none;
+            font-weight: 500;
+            margin-right: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .action-link:hover {
+            color: #144e64;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 20px;
+                max-width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .patient-list th,
+            .patient-list td {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="hero">
+            <h1>Doctor Dashboard</h1>
+            <p>Manage your patients efficiently.</p>
+        </header>
+        <div class="search-bar">
+            <input type="text" id="patient-search" placeholder="Search patients by name or ID...">
+        </div>
+        <table class="patient-list">
             <thead>
                 <tr>
-                    <th>Drug</th>
-                    <th>Time</th>
-                    <th>Dose</th>
-                    <th>Notes from Doctor</th>
+                    <th>PID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Prescribed Medications</th>
+                    <th>Other Medications</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                {% for item in schedule %}
-                    <tr class="schedule-row">
-                        <td>{{ item.drug }}</td>
-                        <td>{{ item.time }}</td>
-                        <td>{{ item.dose }}</td>
-                        <td>{{ item.doctornotes }}</td>
-                    </tr>
-                {% endfor %}
+                <tr>
+                    <td>1</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                    <td>Aspirin, Metformin</td>
+                    <td>Ibuprofen, Vitamin D, Melatonin</td>
+                    <td>
+                        <a href="{{ url_for('doctor_patient_detail', patient_id=1) }}" class="action-link">Edit Drugs</a>
+                        <a href="/patient_detail" class="action-link">See Results</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Jane</td>
+                    <td>Smith</td>
+                    <td>Losartan</td>
+                    <td>Zyrtec</td>
+                    <td>
+                        <a href="{{ url_for('doctor_patient_detail', patient_id=2) }}" class="action-link">Edit Drugs</a>
+                        <a href="/patient_detail" class="action-link">See Results</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Michael</td>
+                    <td>Brown</td>
+                    <td>Omeprazole, Losartan </td>
+                    <td>Acetaminophen </td>
+                    <td>
+                        <a href="{{ url_for('doctor_patient_detail', patient_id=3) }}" class="action-link">Edit Drugs</a>
+                        <a href="/patient_detail" class="action-link">See Results</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Emily</td>
+                    <td>Davis</td>
+                    <td>Amoxicillin </td>
+                    <td>Antacids </td>
+                    <td>
+                        <a href="{{ url_for('doctor_patient_detail', patient_id=4) }}" class="action-link">Edit Drugs</a>
+                        <a href="/patient_detail" class="action-link">See Results</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Robert</td>
+                    <td>Wilson</td>
+                    <td>Gabapentin </td>
+                    <td>Ibuprofen </td>
+                    <td>
+                        <a href="{{ url_for('doctor_patient_detail', patient_id=5) }}" class="action-link">Edit Drugs</a>
+                        <a href="/patient_detail" class="action-link">See Results</a>
+                    </td>
+                </tr>
             </tbody>
         </table>
-    </section>
-{% endblock %}
+    </div>
+</body>
+</html>

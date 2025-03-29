@@ -2,9 +2,8 @@ from flask import Flask, flash, render_template, request, redirect, url_for, ses
 from openFDA import get_drug_info
 
 app = Flask(__name__)
-app.secret_key = 'your-secret-key-here'  # Replace with a secure key
+app.secret_key = 'frenuirh4281y43icnew'  # Replace with a secure key
 
-# Dummy patient data (replace with database later)
 patients_data = {
     "1": {
         "patient_id": "1",
@@ -23,16 +22,19 @@ patients_data = {
                 "effective_time" : "2025-03-01",
                 "time": "12:00 PM", "dose": "2 tablets", "doctornotes": "Take one pill in the morning and one pill in the night after a meal."
                 , "type": "Prescription"}
+            {"drug": "Aspirin", "time": "08:00 AM", "dose": "1 tablet", "doctornotes": "Take with breakfast"},
+            {"drug": "Metformin", "time": "12:00 PM", "dose": "2 tablets", "doctornotes": "Take after meals"}
         ],
         "drug_history": [
-            {"drug": "Aspirin", "date": "2025-03-28", "time": "08:05 AM"},
+            {"drug": "Ibuprofen", "date": "2025-03-27", "time": "10:00 AM"},
+            {"drug": "Vitamin D", "date": "2025-03-26", "time": "09:00 AM"},
+            {"drug": "Melatonin", "date": "2025-03-25", "time": "10:00 PM"}
         ],
         "health_history": [
-            {"event": "Blood Pressure Check", "date": "2025-03-28", "result": "120/80 mmHg"},
+            {"event": "Blood Pressure Check", "date": "2025-03-28", "result": "120/80 mmHg"}
         ],
         "alerts": [
-            {"type": "Missed Dose", "drug": "Metformin", "time": "2025-03-29 12:00 PM"},
-            {"type": "Overdose Risk", "drug": "Aspirin", "time": "2025-03-29 08:00 AM"}
+            {"type": "Missed Dose", "drug": "Metformin", "time": "2025-03-29 12:00 PM"}
         ],
         "vitals": {"heart_rate": "72 bpm", "temperature": "98.6°F"}
     },
@@ -49,17 +51,64 @@ patients_data = {
                 "indications_and_usage" : "For the temporary relief of minor aches and pains.",
                 "effective_time" : "2025-03-01", "time": "03:00 PM", "dose": "2 tablets"
                 , "type": "OTC"}
+            {"drug": "Losartan", "time": "09:00 AM", "dose": "1 tablet", "doctornotes": "Take in morning"}
         ],
         "drug_history": [
-            {"drug": "Lisinopril", "date": "2025-03-28", "time": "09:10 AM"},
+            {"drug": "Zyrtec", "date": "2025-03-28", "time": "08:00 PM"}
         ],
         "health_history": [
-            {"event": "Blood Sugar Test", "date": "2025-03-28", "result": "110 mg/dL"},
+            {"event": "Blood Pressure Check", "date": "2025-03-28", "result": "130/85 mmHg"}
         ],
         "alerts": [
-            {"type": "Missed Dose", "drug": "Ibuprofen", "time": "2025-03-29 03:00 PM"}
+            {"type": "Missed Dose", "drug": "Losartan", "time": "2025-03-29 09:00 AM"}
         ],
         "vitals": {"heart_rate": "68 bpm", "temperature": "98.4°F"}
+    },
+    "3": {
+        "patient_id": "3",
+        "patient_name": "Michael Brown",
+        "schedule": [
+            {"drug": "Omeprazole", "time": "07:00 AM", "dose": "1 capsule", "doctornotes": "Take before breakfast"},
+            {"drug": "Losartan", "time": "09:00 AM", "dose": "1 tablet", "doctornotes": "Take in morning"}
+        ],
+        "drug_history": [
+            {"drug": "Acetaminophen", "date": "2025-03-28", "time": "02:00 PM"}
+        ],
+        "health_history": [
+            {"event": "Acid Reflux Check", "date": "2025-03-28", "result": "Mild symptoms"}
+        ],
+        "alerts": [],
+        "vitals": {"heart_rate": "70 bpm", "temperature": "98.5°F"}
+    },
+    "4": {
+        "patient_id": "4",
+        "patient_name": "Emily Davis",
+        "schedule": [
+            {"drug": "Amoxicillin", "time": "08:00 AM", "dose": "1 capsule", "doctornotes": "Take every 8 hours"}
+        ],
+        "drug_history": [
+            {"drug": "Antacids", "date": "2025-03-28", "time": "01:00 PM"}
+        ],
+        "health_history": [
+            {"event": "Infection Check", "date": "2025-03-28", "result": "Improving"}
+        ],
+        "alerts": [],
+        "vitals": {"heart_rate": "75 bpm", "temperature": "99.1°F"}
+    },
+    "5": {
+        "patient_id": "5",
+        "patient_name": "Robert Wilson",
+        "schedule": [
+            {"drug": "Gabapentin", "time": "09:00 PM", "dose": "1 capsule", "doctornotes": "Take at bedtime"}
+        ],
+        "drug_history": [
+            {"drug": "Ibuprofen", "date": "2025-03-28", "time": "03:00 PM"}
+        ],
+        "health_history": [
+            {"event": "Pain Assessment", "date": "2025-03-28", "result": "Moderate"}
+        ],
+        "alerts": [],
+        "vitals": {"heart_rate": "73 bpm", "temperature": "98.7°F"}
     }
 }
 
@@ -132,7 +181,7 @@ def doctor_patient_detail(patient_id):
         return redirect(url_for('login'))
     if patient_id not in patients_data:
         return "Patient not found", 404
-    return render_template('doctor/patient_detail.html', data=patients_data[patient_id])
+    return render_template('doctor/add_drug.html', data=patient_id)
 
 @app.route('/doctor/edit_drug/<patient_id>', methods=['GET', 'POST'])
 def doctor_add_drug(patient_id):
