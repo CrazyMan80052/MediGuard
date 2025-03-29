@@ -14,13 +14,15 @@ patients_data = {
              "do_not_use" : "Do not use if you have a history of allergic reaction to aspirin or other NSAIDs.",
                 "indications_and_usage" : "For the temporary relief of minor aches and pains.",
                 "effective_time" : "2025-03-01",
-              "time": "08:00 AM", "dose": "1 tablet", "doctornotes": "Take one pill in the morning every day for 14 days."},
+              "time": "08:00 AM", "dose": "1 tablet", "doctornotes": "Take one pill in the morning every day for 14 days."
+              , "type": "OTC"},
             {"drug": "Metformin", 
              "warnings" : "Aspirin", "active_ingredients" : ["acetylsalicylic acid"],
              "do_not_use" : "Do not use if you have a history of allergic reaction to aspirin or other NSAIDs.",
                 "indications_and_usage" : "For the temporary relief of minor aches and pains.",
                 "effective_time" : "2025-03-01",
-                "time": "12:00 PM", "dose": "2 tablets", "doctornotes": "Take one pill in the morning and one pill in the night after a meal."}
+                "time": "12:00 PM", "dose": "2 tablets", "doctornotes": "Take one pill in the morning and one pill in the night after a meal."
+                , "type": "Prescription"}
         ],
         "drug_history": [
             {"drug": "Aspirin", "date": "2025-03-28", "time": "08:05 AM"},
@@ -45,7 +47,8 @@ patients_data = {
             {"drug": "Ibuprofen", "warnings" : "Aspirin", "active_ingredients" : ["acetylsalicylic acid"],
              "do_not_use" : "Do not use if you have a history of allergic reaction to aspirin or other NSAIDs.",
                 "indications_and_usage" : "For the temporary relief of minor aches and pains.",
-                "effective_time" : "2025-03-01", "time": "03:00 PM", "dose": "2 tablets"}
+                "effective_time" : "2025-03-01", "time": "03:00 PM", "dose": "2 tablets"
+                , "type": "OTC"}
         ],
         "drug_history": [
             {"drug": "Lisinopril", "date": "2025-03-28", "time": "09:10 AM"},
@@ -99,7 +102,6 @@ def patient_add_drug():
         time = request.form['time']
         dose = request.form['dose']
 
-        
         # Checking drug interactions
         fdacode = "brand_name"
         drug_info, bad_interactions = get_drug_info(drug, patients_data["1"]["schedule"], fdacode)
@@ -107,12 +109,11 @@ def patient_add_drug():
         #print(bad_interactions)
         #print(drug_info)
         if(len(bad_interactions) > 0):
-            #print("HELP")
-            flash(f"Warning: {drug} interacts with {bad_interactions}")
-            return render_template('patient/add_drug.html', error=f"Warning: {drug} interacts with {bad_interactions}") 
+            return render_template('patient/add_drug.html', error=f"Warning: {drug} interacts with {', '.join(bad_interactions)}")
         else:
             drug_info["time"] = time
             drug_info["dose"] = dose
+            drug_info["type"] = "OTC"
             patients_data["1"]["schedule"].append(drug_info)  # Default to patient 1
             print("added the item to the list")
             return redirect(url_for('patient_home'))
@@ -132,6 +133,37 @@ def doctor_patient_detail(patient_id):
     if patient_id not in patients_data:
         return "Patient not found", 404
     return render_template('doctor/patient_detail.html', data=patients_data[patient_id])
+
+@app.route('/doctor/edit_drug/<patient_id>', methods=['GET', 'POST'])
+def doctor_add_drug(patient_id):
+    if session.get('role') != 'doctor':
+        return redirect(url_for('login'))
+    if request.method == 'POST':
+        drug = request.form['drug']
+        time = request.form['time']
+        dose = request.form['dose']
+        note = request.form['note']
+
+        
+        # Checking drug interactions
+        fdacode = "substance_name"
+        drug_info, bad_interactions = get_drug_info(drug, patients_data[patient_id]["schedule"], fdacode)
+
+        #print(bad_interactions)
+        #print(drug_info)
+        if(len(bad_interactions) > 0):
+            #print("HELP")
+            flash(f"Warning: {drug} interacts with {bad_interactions}")
+            return render_template('doctor/add_drug.html', error=f"Warning: {drug} interacts with {bad_interactions}") 
+        else:
+            drug_info["time"] = time
+            drug_info["dose"] = dose
+            drug_info["type"] = "Prescription"
+            drug_info["note"] = note
+            patients_data[patient_id]["schedule"].append(drug_info)  # Default to patient 1
+            print("added the item to the list")
+            return redirect(url_for('doctor_home'))
+    return render_template('doctor/edit_drug.html')
 
 # Logout Route
 @app.route('/logout')
