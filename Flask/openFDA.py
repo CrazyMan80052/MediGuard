@@ -36,10 +36,18 @@ def get_drug_info(drug_name, patient_drugs, fdacode):
         return None
     label = label['results'][0]
 
-    warnings = label['warnings'][0]
-    # cleans up the active ingredient stuff 
-    active_ingredients = label['openfda']['substance_name']
-    print(active_ingredients)
+    warnings = ""
+    if 'warnings' in label:
+        warnings = label['warnings'][0]
+    elif 'warnings_and_cautions' in label:
+        warnings = label['warnings_and_cautions'][0]
+    elif 'boxed_warning' in label:
+        warnings = label['boxed_warning'][0]
+        
+    active_ingredients = []
+    if 'openfda' in label:
+        active_ingredients = label['openfda']['substance_name']
+        print(active_ingredients)
 
     bad_interactions = []
     # now need to get the stop use
@@ -51,11 +59,12 @@ def get_drug_info(drug_name, patient_drugs, fdacode):
         drug_interactions = interactions['drug_interactions']
         #contraindications = interactions['contraindications']
         for drug in patient_drugs:
-            for ing in drug['active_ingredients']:
-                print(ing)
-                if ing.lower() in drug_interactions[0].lower():
-                    print(f"Warning: {drug['drug']} interacts with {drug_name}")
-                    bad_interactions.append(drug['drug'])
+            if 'active_ingredients' in drug:
+                for ing in drug['active_ingredients']:
+                    print(ing)
+                    if ing.lower() in drug_interactions[0].lower():
+                        print(f"Warning: {drug['drug']} interacts with {drug_name}")
+                        bad_interactions.append(drug['drug'])
         #print(f"{active_ingredient} {contraindications}")
 
     drug_info = {

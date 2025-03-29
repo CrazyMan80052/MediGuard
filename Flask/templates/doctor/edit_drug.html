@@ -2,7 +2,7 @@
 {% block title %}Add Drug{% endblock %}
 {% block content %}
     <header class="hero">
-        <h1>Add New Drug</h1>
+        <h1>Add a New Prescription</h1>
         <p>Update patient medication schedule with ease.</p>
     </header>
     <section class="schedule-container">
@@ -13,11 +13,15 @@
             </div>
             <div class="form-group">
                 <label for="time">Time</label>
-                <input type="time" id="time" name="time" required>
+                <input type="time" id="time" name="time">
             </div>
             <div class="form-group">
                 <label for="dose">Dose</label>
                 <input type="text" id="dose" name="dose" required placeholder="e.g., 1 tablet">
+            </div>
+            <div class="form-group">
+                <label for="doctornotes">Doctor Notes</label>
+                <input type="text" id="doctornotes" name="doctornotes" placeholder="e.g., Take one every evening after a meal.">
             </div>
             <button type="submit" class="submit-btn">Add Drug</button>
         </form>

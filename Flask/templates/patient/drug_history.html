@@ -10,7 +10,8 @@
             <thead>
                 <tr>
                     <th>Drug</th>
-                    <th>Date</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
                     <th>Time</th>
                 </tr>
             </thead>
@@ -18,6 +19,7 @@
                 {% for entry in history %}
                     <tr class="schedule-row">
                         <td>{{ entry.drug }}</td>
+                        <td>{{ entry.date }}</td>
                         <td>{{ entry.date }}</td>
                         <td>{{ entry.time }}</td>
                     </tr>

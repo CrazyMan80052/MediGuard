@@ -201,61 +201,27 @@
                 </tr>
             </thead>
             <tbody>
+                {% for patient_id, patient in patients_data.items() %}
                 <tr>
-                    <td>1</td>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>Aspirin, Metformin</td>
-                    <td>Ibuprofen, Vitamin D, Melatonin</td>
+                    <td>{{ patient.patient_id }}</td>
+                    <td>{{ patient.patient_name.split(' ')[0] }}</td> <!-- First Name -->
+                    <td>{{ patient.patient_name.split(' ')[1] }}</td> <!-- Last Name -->
                     <td>
-                        <a href="{{ url_for('doctor_patient_detail', patient_id=1) }}" class="action-link">Edit Drugs</a>
-                        <a href="/patient_detail" class="action-link">See Results</a>
+                        {% for med in patient.schedule %}
+                            {{ med.drug }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for med in patient.drug_history %}
+                            {{ med.drug }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a href="{{ url_for('doctor_edit_drug', patient_id=patient.patient_id) }}" class="action-link">Edit Drugs</a>
+                        <a href="{{ url_for('doctor_edit_drug', patient_id=patient.patient_id) }}" class="action-link">See Results</a>
                     </td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Jane</td>
-                    <td>Smith</td>
-                    <td>Losartan</td>
-                    <td>Zyrtec</td>
-                    <td>
-                        <a href="{{ url_for('doctor_patient_detail', patient_id=2) }}" class="action-link">Edit Drugs</a>
-                        <a href="/patient_detail" class="action-link">See Results</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Michael</td>
-                    <td>Brown</td>
-                    <td>Omeprazole, Losartan </td>
-                    <td>Acetaminophen </td>
-                    <td>
-                        <a href="{{ url_for('doctor_patient_detail', patient_id=3) }}" class="action-link">Edit Drugs</a>
-                        <a href="/patient_detail" class="action-link">See Results</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Emily</td>
-                    <td>Davis</td>
-                    <td>Amoxicillin </td>
-                    <td>Antacids </td>
-                    <td>
-                        <a href="{{ url_for('doctor_patient_detail', patient_id=4) }}" class="action-link">Edit Drugs</a>
-                        <a href="/patient_detail" class="action-link">See Results</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Robert</td>
-                    <td>Wilson</td>
-                    <td>Gabapentin </td>
-                    <td>Ibuprofen </td>
-                    <td>
-                        <a href="{{ url_for('doctor_patient_detail', patient_id=5) }}" class="action-link">Edit Drugs</a>
-                        <a href="/patient_detail" class="action-link">See Results</a>
-                    </td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

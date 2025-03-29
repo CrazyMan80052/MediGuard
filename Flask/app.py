@@ -24,9 +24,7 @@ patients_data = {
                 , "type": "Prescription"}
         ],
         "drug_history": [
-            {"drug": "Ibuprofen", "date": "2025-03-27", "time": "10:00 AM"},
-            {"drug": "Vitamin D", "date": "2025-03-26", "time": "09:00 AM"},
-            {"drug": "Melatonin", "date": "2025-03-25", "time": "10:00 PM"}
+            {"drug": "Vitamin D", "date": "2025-03-26", "time": "09:00 AM"}
         ],
         "health_history": [
             {"event": "Blood Pressure Check", "date": "2025-03-28", "result": "120/80 mmHg"}
@@ -66,8 +64,7 @@ patients_data = {
         "patient_id": "3",
         "patient_name": "Michael Brown",
         "schedule": [
-            {"drug": "Omeprazole", "time": "07:00 AM", "dose": "1 capsule", "doctornotes": "Take before breakfast"},
-            {"drug": "Losartan", "time": "09:00 AM", "dose": "1 tablet", "doctornotes": "Take in morning"}
+            {"drug": "Omeprazole", "time": "07:00 AM", "dose": "1 capsule", "doctornotes": "Take before breakfast"}
         ],
         "drug_history": [
             {"drug": "Acetaminophen", "date": "2025-03-28", "time": "02:00 PM"}
@@ -83,9 +80,6 @@ patients_data = {
         "patient_name": "Emily Davis",
         "schedule": [
             {"drug": "Amoxicillin", "time": "08:00 AM", "dose": "1 capsule", "doctornotes": "Take every 8 hours"}
-        ],
-        "drug_history": [
-            {"drug": "Antacids", "date": "2025-03-28", "time": "01:00 PM"}
         ],
         "health_history": [
             {"event": "Infection Check", "date": "2025-03-28", "result": "Improving"}
@@ -171,7 +165,7 @@ def patient_add_drug():
 def doctor_dashboard():
     if session.get('role') != 'doctor':
         return redirect(url_for('login'))
-    return render_template('doctor/dashboard.html', patients=patients_data)
+    return render_template('doctor/dashboard.html', patients_data=patients_data)
 
 @app.route('/doctor/patient/<patient_id>')
 def doctor_patient_detail(patient_id):
@@ -179,37 +173,46 @@ def doctor_patient_detail(patient_id):
         return redirect(url_for('login'))
     if patient_id not in patients_data:
         return "Patient not found", 404
-    return render_template('doctor/add_drug.html', data=patient_id)
+    return render_template('doctor/edit_drug.html', data=patient_id)
 
 @app.route('/doctor/edit_drug/<patient_id>', methods=['GET', 'POST'])
-def doctor_add_drug(patient_id):
+def doctor_edit_drug(patient_id):
     if session.get('role') != 'doctor':
         return redirect(url_for('login'))
     if request.method == 'POST':
-        drug = request.form['drug']
-        time = request.form['time']
-        dose = request.form['dose']
-        note = request.form['note']
-
-        
+        if 'drug' in request.form and request.form['drug']:
+            drug = request.form['drug']
         # Checking drug interactions
         fdacode = "substance_name"
-        drug_info, bad_interactions = get_drug_info(drug, patients_data[patient_id]["schedule"], fdacode)
+
+        try:
+            # Attempt to get drug information and identify bad interactions
+            drug_info, bad_interactions = get_drug_info(drug, patients_data[patient_id]["schedule"], fdacode)
+        except Exception as e:
+            # Catch all exceptions and log or handle the error
+            print(f"An error occurred while fetching drug information: {e}")
+            drug_info, bad_interactions = None, None
 
         #print(bad_interactions)
         #print(drug_info)
         if(len(bad_interactions) > 0):
-            #print("HELP")
-            flash(f"Warning: {drug} interacts with {bad_interactions}")
-            return render_template('doctor/add_drug.html', error=f"Warning: {drug} interacts with {bad_interactions}") 
+            return render_template('patient/add_drug.html', error=f"Warning: {drug} interacts with {', '.join(bad_interactions)}")
         else:
-            drug_info["time"] = time
-            drug_info["dose"] = dose
+
+            if 'time' in request.form and request.form['time']:
+                drug_info['time'] = request.form['time']
+
+            if 'dose' in request.form and request.form['dose']:
+                drug_info['dose'] = request.form['dose']
+
+            if 'doctornotes' in request.form and request.form['doctornotes']:
+                drug_info['doctornotes'] = request.form['doctornotes']
+
             drug_info["type"] = "Prescription"
-            drug_info["note"] = note
-            patients_data[patient_id]["schedule"].append(drug_info)  # Default to patient 1
+            
+            patients_data[patient_id]["schedule"].append(drug_info)  
             print("added the item to the list")
-            return redirect(url_for('doctor_home'))
+            return redirect(url_for('doctor_dashboard'))
     return render_template('doctor/edit_drug.html')
 
 # Logout Route
