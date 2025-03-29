@@ -11,7 +11,7 @@
     <nav class="nav-bar">
         <div class="nav-links">
             {% if session.get('role') == 'patient' %}
-                <a href="{{ url_for('patient_home') }}">Home</a>
+                <a class ="mediGuard-link" href="{{ url_for('patient_home') }}">MediGuard</a>
                 <a href="{{ url_for('patient_drug_history') }}">Drug History</a>
                 <a href="{{ url_for('patient_health_history') }}">Health History</a>
                 <a href="{{ url_for('patient_add_drug') }}">Add Drug</a>

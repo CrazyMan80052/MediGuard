@@ -29,7 +29,7 @@ body {
 }
 
 .nav-links a {
-    color: #007bff;
+    color: #0056b3;
     text-decoration: none;
     margin-right: 20px;
     font-weight: 500;
@@ -37,7 +37,7 @@ body {
 }
 
 .nav-links a:hover {
-    color: #0056b3;
+    color: #73bbd1;
 }
 
 .nav-welcome {
@@ -91,7 +91,7 @@ body {
 
 .login-form input:focus,
 .login-form select:focus {
-    border-color: #007bff;
+    border-color: #056887;
     outline: none;
 }
 
@@ -146,7 +146,7 @@ body {
 }
 
 .schedule-table th {
-    background-color: #007bff;
+    background-color: #056887;
     color: #ffffff;
     font-weight: 600;
     text-transform: uppercase;
@@ -183,7 +183,7 @@ body {
 
 /* View Link Styling */
 .view-link {
-    color: #007bff;
+    color: #056887;
     text-decoration: none;
     font-weight: 500;
     transition: color 0 ratt-dbg-colorado;
@@ -192,7 +192,7 @@ body {
 }
 
 .view-link:hover {
-    color: #0056b3;
+    color: #056887;
 }
 
 /* Form Styling for Add Drug */
@@ -225,7 +225,7 @@ body {
 }
 
 .form-group input:focus {
-    border-color: #007bff;
+    border-color: #056887;
     outline: none;
 }
 
@@ -234,7 +234,7 @@ body {
 }
 
 .submit-btn {
-    background-color: #007bff;
+    background-color: #056887;
     color: #ffffff;
     padding: 12px;
     border: none;
@@ -299,4 +299,23 @@ body {
 
 .schedule-table td:nth-child(2) {
     color: #e74c3c; /* Highlight time/date in red for emphasis */
+}
+
+.mediGuard-link {
+    font-family: 'Roboto', sans-serif; /* Use a cool font-family */
+    font-weight: 700; /* Bold weight for block font effect */
+    font-size: 1rem; /* Adjust size as needed */
+    text-decoration: none;
+    color: transparent;
+    background-clip: text;
+    display: inline-block;
+    padding: 10px;
+    border-radius: none;
+    border:none;
+    transition: transform 0.3s ease-in-out, text-shadow 0.3s ease;
+}
+
+.mediGuard-link:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); /* Text shadow effect on hover */
 }
