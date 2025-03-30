@@ -1,4 +1,4 @@
 # Ignores my virtual enviroment
 env/
 # ignores the API key
-Flask\API_Key.txt
+Flask/API_Key.txt
