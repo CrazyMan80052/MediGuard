@@ -7,7 +7,7 @@ import threading
 arduino = serial.Serial('COM17', 9600)  # Adjust the port for your system
 time.sleep(2)  # Wait for connection
 
-scheduled_times ="6:45 PM"  # Set time patients_data["1"]["schedule"][]["time"]
+scheduled_times ="8:10 PM"  # Set time patients_data["1"]["schedule"][]["time"]
 
 def run_scheduler():
     while True:
